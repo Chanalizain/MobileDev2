@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../theme/theme.dart'; // Ensure this points to your BlaColors/BlaTextStyles
 
 class BlaButton extends StatelessWidget {
   final VoidCallback onPressed;
@@ -20,52 +21,51 @@ class BlaButton extends StatelessWidget {
   }
 
   Widget _buildPrimaryButton() {
+    final style = ElevatedButton.styleFrom(
+      backgroundColor: BlaColors.primary,      
+      foregroundColor: BlaColors.white,        
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(BlaSpacings.radiusLarge),
+      ),
+      textStyle: BlaTextStyles.button,
+      elevation: 0,
+    );
+
     return icon != null
         ? ElevatedButton.icon(
             onPressed: onPressed,
             icon: Icon(icon),
             label: Text(label),
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue, 
-              foregroundColor: Colors.white,
-            ),
+            style: style,
           )
         : ElevatedButton(
-          onPressed: onPressed, 
-          style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue, 
-              foregroundColor: Colors.white,
-          ),
-          child: Text(label),
+            onPressed: onPressed,
+            style: style,
+            child: Text(label),
           );
   }
 
   Widget _buildSecondaryButton() {
+    final style = OutlinedButton.styleFrom(
+      foregroundColor: BlaColors.primary,      
+      side: BorderSide(color: BlaColors.greyLight), 
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(BlaSpacings.radiusLarge),
+      ),
+      textStyle: BlaTextStyles.button,
+    );
+
     return icon != null
         ? OutlinedButton.icon(
             onPressed: onPressed,
             icon: Icon(icon),
             label: Text(label),
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.blue, 
-              side: const BorderSide(color: Colors.grey), 
-            ),
+            style: style,
           )
         : OutlinedButton(
-            onPressed: onPressed, 
-            style: OutlinedButton.styleFrom(
-              foregroundColor: Colors.blue, // Text color
-              side: const BorderSide(color: Colors.grey), // <--- GREY OUTLINE
-            ),
-            child: Text(label)
+            onPressed: onPressed,
+            style: style,
+            child: Text(label),
           );
-  }
-}
-class MyWidget extends StatelessWidget {
-  const MyWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }
