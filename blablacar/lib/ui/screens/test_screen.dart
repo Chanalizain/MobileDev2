@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../widgets/actions/bla_button.dart';
 import '../screens/ride_pref/widgets/ride_prefs_form.dart';
-import '../theme/theme.dart';
 import '../../data/dummy_data.dart';
 
 void main() {

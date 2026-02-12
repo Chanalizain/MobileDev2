@@ -5,6 +5,7 @@ import '../../../theme/theme.dart';
 import '../../../../model/ride/locations.dart';
 import '../../../../model/ride_pref/ride_pref.dart';
 import '../../../widgets/actions/bla_button.dart';
+import './location_picker.dart';
 
 ///
 /// A Ride Preference From is a view to select:
@@ -81,6 +82,36 @@ class _RidePrefFormState extends State<RidePrefForm> {
       print("Error");
     }
   }
+  
+  void _onLocationPressed(bool isDeparture) async {
+    // 1. Navigate to the picker
+    Location? selectedLocation = await Navigator.push<Location>(
+      context,
+      MaterialPageRoute(
+        builder: (context) =>
+            LocationPicker(
+              title: isDeparture ? "Leaving from" : "Going to",
+              onSelect: (Location location) {
+                Navigator.pop(
+                  context,
+                  location,
+                ); 
+              },
+            ),
+      ),
+    );
+
+    // 2. Update the correct state variable based on the flag
+    if (selectedLocation != null) {
+      setState(() {
+        if (isDeparture) {
+          departure = selectedLocation;
+        } else {
+          arrival = selectedLocation;
+        }
+      });
+    }
+  }
   // ----------------------------------
   // Compute the widgets rendering
   // ----------------------------------
@@ -135,6 +166,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
                           ? Icons.location_on
                           : Icons.panorama_fish_eye_rounded,
                       departure?.name ?? "Leaving from",
+                      onTap: () => _onLocationPressed(true),
                     ),
                   ),
                   IconButton(
@@ -150,6 +182,7 @@ class _RidePrefFormState extends State<RidePrefForm> {
                     ? Icons.location_on
                     : Icons.panorama_fish_eye_rounded,
                 arrival?.name ?? "Going to",
+                onTap: () => _onLocationPressed(false),
               ),
               const Divider(indent: 50, height: 1),
 
