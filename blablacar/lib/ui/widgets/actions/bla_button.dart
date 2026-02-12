@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../../theme/theme.dart'; // Ensure this points to your BlaColors/BlaTextStyles
+import '../../theme/theme.dart'; 
 
 class BlaButton extends StatelessWidget {
   final VoidCallback onPressed;
