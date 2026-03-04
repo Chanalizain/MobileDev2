@@ -1,30 +1,30 @@
 import 'package:flutter/widgets.dart';
 
+import '../../data/repositories/settings/app_settings_repository.dart';
 import '../../model/settings/app_settings.dart';
-import '../../../app_settings/data/repositories/app_settings_repository.dart';
 
 class AppSettingsState extends ChangeNotifier {
-  final AppSettingsRepository _repository;
+  final AppSettingsRepository repository;
+
   AppSettings? _appSettings;
 
-  AppSettingsState(this._repository);
+  AppSettingsState({required this.repository}) {
+    init();
+  }
 
   Future<void> init() async {
-    // Might be used to load data from repository
-    _appSettings = await _repository.load();
+    _appSettings = await repository.load();
     notifyListeners();
   }
 
   ThemeColor get theme => _appSettings?.themeColor ?? ThemeColor.blue;
 
   Future<void> changeTheme(ThemeColor themeColor) async {
+    if (_appSettings == null) return;
 
-    final current = _appSettings ?? AppSettings(themeColor: ThemeColor.blue);
+    _appSettings = _appSettings!.copyWith(themeColor: themeColor);
 
-    // Update the local state
-    _appSettings = current.copyWith(themeColor: themeColor);
-
-    await _repository.save(_appSettings!);
+    await repository.save(_appSettings!);
 
     notifyListeners();
   }

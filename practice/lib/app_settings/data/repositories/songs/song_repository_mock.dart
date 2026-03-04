@@ -1,15 +1,9 @@
 // song_repository_mock.dart
 
-import 'package:practice/app_settings/model/settings/app_settings.dart';
-
 import '../../../model/songs/song.dart';
-import '../app_settings_repository.dart';
 import 'song_repository.dart';
 
-class SongRepositoryMock implements SongRepository, AppSettingsRepository {
-
-  AppSettings _mockSettings = AppSettings(themeColor: ThemeColor.blue);
-  
+class SongRepositoryMock implements SongRepository {
   final List<Song> _songs = [
     Song(
       id: '101',
@@ -37,15 +31,5 @@ class SongRepositoryMock implements SongRepository, AppSettingsRepository {
     } catch (_) {
       return null;
     }
-  }
-
-  @override
-  Future<AppSettings> load() async {
-    return _mockSettings;
-  }
-
-  @override
-  Future<void> save(AppSettings settings) async {
-    _mockSettings = settings;
   }
 }

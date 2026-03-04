@@ -12,15 +12,15 @@ class LibraryScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1- Read the global song repository
+    // 1- Read the globbal song repository
     SongRepository songRepository = context.read<SongRepository>();
     List<Song> songs = songRepository.fetchSongs();
- 
-    // 3 - Watch the global player state
+
+    // 2- Read the globbal settings state
+    AppSettingsState settingsState = context.read<AppSettingsState>();
+
+    // 3 - Watch the globbal player state
     PlayerState playerState = context.watch<PlayerState>();
-
-    final settingsState = context.watch<AppSettingsState>();
-
 
     return Container(
       color: settingsState.theme.backgroundColor,
