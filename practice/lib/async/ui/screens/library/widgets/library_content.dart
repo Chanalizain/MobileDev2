@@ -10,7 +10,6 @@ class LibraryContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // 1- Read the globbal song repository
     LibraryViewModel mv = context.watch<LibraryViewModel>();
 
     return Padding(
@@ -28,11 +27,11 @@ class LibraryContent extends StatelessWidget {
     );
   }
   Widget _buildBody(LibraryViewModel mv) {
-    // Use .when to handle the 3 states of AsyncValue [cite: 25, 26]
+    // Use .when to handle the 3 states of AsyncValue 
     return mv.songs.when(
       // 1. Handle Loading State
       loading: () => const Center(
-        child: CircularProgressIndicator(), // [cite: 27]
+        child: CircularProgressIndicator(), 
       ),
 
       // 2. Handle Error State
@@ -40,7 +39,7 @@ class LibraryContent extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text("Error: $err", textAlign: TextAlign.center), // [cite: 23, 26]
+            Text("Error: $err", textAlign: TextAlign.center), 
             const SizedBox(height: 16),
             ElevatedButton(
               onPressed: () => mv.fetchSongs(), // Retry logic
