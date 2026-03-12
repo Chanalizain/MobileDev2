@@ -7,7 +7,7 @@ import '../../../../model/songs/song.dart';
 class LibraryViewModel extends ChangeNotifier {
   final SongRepository songRepository;
   final PlayerState playerState;
-  // Use AsyncValue to wrap your list of songs
+  // Use AsyncValue to wrap the list of songs
   AsyncValue<List<Song>> _songs = const AsyncValue.loading();
 
   AsyncValue<List<Song>> get songs => _songs;
@@ -45,7 +45,6 @@ class LibraryViewModel extends ChangeNotifier {
   }
 
   bool isSongPlaying(Song song) => playerState.currentSong == song;
-
   void start(Song song) => playerState.start(song);
   void stop(Song song) => playerState.stop();
 }
