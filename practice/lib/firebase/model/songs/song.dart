@@ -1,9 +1,12 @@
+import 'package:practice/firebase/model/artists/artist.dart';
+
 class Song {
   final String id;
   final String title;
   final String artistId;
   final Duration duration;
   final Uri imageUrl;
+  Artist? artist;
 
   Song({
     required this.id,
@@ -11,6 +14,7 @@ class Song {
     required this.artistId,
     required this.duration,
     required this.imageUrl,
+    this.artist
   });
 
   @override

@@ -16,6 +16,11 @@ class SongTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final int totalSeconds = song.duration.inSeconds;
+
+    final int minutes = totalSeconds ~/ 60;
+    final int seconds = totalSeconds % 60;
+
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Container(
@@ -27,6 +32,11 @@ class SongTile extends StatelessWidget {
           onTap: onTap,
           title: Text(song.title),
           leading: CircleAvatar(backgroundImage: NetworkImage(song.imageUrl.toString()),),
+          
+          subtitle: Text(
+            "$minutes:${seconds.toString().padLeft(2, '0')} mn  ${song.artist?.name ?? 'Unknown Artist'} - ${song.artist?.genre}",
+            style: TextStyle(color: Colors.grey[600], fontSize: 12),
+          ),
           trailing: Text(
             isPlaying ? "Playing" : "",
             style: TextStyle(color: Colors.amber),
