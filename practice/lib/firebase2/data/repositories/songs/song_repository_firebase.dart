@@ -8,7 +8,7 @@ import 'song_repository.dart';
 
 class SongRepositoryFirebase extends SongRepository {
   final Uri songsUri = Uri.https(
-    'test-a2a77-default-rtdb.asia-southeast1.firebasedatabase.app',
+    'first-firebase-project-9c20d-default-rtdb.asia-southeast1.firebasedatabase.app',
     '/songs.json',
   );
 
@@ -28,6 +28,25 @@ class SongRepositoryFirebase extends SongRepository {
     } else {
       // 2- Throw expcetion if any issue
       throw Exception('Failed to load posts');
+    }
+  }
+
+  @override
+  Future<void> updateLikes(String songId, int newLikesCount) async {
+    final Uri songUrl = Uri.https(
+      'first-firebase-project-9c20d-default-rtdb.asia-southeast1.firebasedatabase.app',
+      '/songs/$songId.json', 
+    );
+
+    final response = await http.patch(
+      songUrl,
+      body: json.encode({
+        SongDto.likesKey: newLikesCount, // Use the key from DTO
+      }),
+    );
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to update likes for song $songId');
     }
   }
 
