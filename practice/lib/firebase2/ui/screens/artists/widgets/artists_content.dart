@@ -32,9 +32,15 @@ class ArtistsContent extends StatelessWidget {
 
       case AsyncValueState.success:
         List<Artist> artists = asyncValue.data!;
-        content = ListView.builder(
-          itemCount: artists.length,
-          itemBuilder: (context, index) => ArtistTile(artist: artists[index]),
+        content = RefreshIndicator(
+          onRefresh: () async {
+            // This triggers the specific Artist refresh
+            await mv.fetchArtists(forceFetch: true);
+          },
+          child: ListView.builder(
+            itemCount: artists.length,
+            itemBuilder: (context, index) => ArtistTile(artist: artists[index]),
+          ),
         );
     }
 
